@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Profile Roast - The Brutal Truth</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #000000;
+            --white: #ffffff;
+            --gray-100: #f8f9fa;
+            --gray-200: #e9ecef;
+            --gray-300: #dee2e6;
+            --gray-400: #ced4da;
+            --gray-500: #adb5bd;
+            --gray-600: #6c757d;
+            --gray-700: #495057;
+            --gray-800: #343a40;
+            --gray-900: #212529;
+            --accent: #6c63ff;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--white);
+            color: var(--black);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            padding: 2rem 0;
+            border-bottom: 2px solid var(--black);
+            position: relative;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 900;
+            letter-spacing: -1px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            font-size: 2.5rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        main {
+            padding: 3rem 0;
+        }
+
+        .input-section {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.875rem;
+            letter-spacing: 1px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--black);
+            border-radius: 0;
+            font-size: 1.125rem;
+            transition: all 0.3s ease;
+            background: var(--white);
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px var(--gray-200);
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            background: var(--black);
+            color: var(--white);
+            border: 2px solid var(--black);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:hover {
+            background: var(--white);
+            color: var(--black);
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .btn-secondary {
+            background: var(--white);
+            color: var(--black);
+            margin-left: 1rem;
+        }
+
+        .btn-secondary:hover {
+            background: var(--black);
+            color: var(--white);
+        }
+
+        .profile-section {
+            display: none;
+            margin-bottom: 3rem;
+        }
+
+        .profile-section.active {
+            display: block;
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            padding: 2rem;
+            border: 2px solid var(--black);
+        }
+
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 3px solid var(--black);
+        }
+
+        .profile-info h2 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-info p {
+            color: var(--gray-600);
+            margin-bottom: 0.5rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            padding: 1.5rem;
+            border: 2px solid var(--black);
+            text-align: center;
+            transition: all 0.3s ease;
+            background: var(--white);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--gray-600);
+        }
+
+        .roast-section {
+            margin-bottom: 3rem;
+        }
+
+        .roast-card {
+            padding: 2rem;
+            border: 2px solid var(--black);
+            margin-bottom: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .roast-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                var(--gray-100) 10px,
+                var(--gray-100) 20px
+            );
+            z-index: -1;
+        }
+
+        .roast-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .roast-text {
+            font-size: 1.125rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .roast-score {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .score-bar {
+            flex-grow: 1;
+            height: 10px;
+            background: var(--gray-200);
+            position: relative;
+        }
+
+        .score-fill {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background: var(--black);
+            transition: width 1s ease;
+        }
+
+        .score-value {
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+
+        .repo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .repo-card {
+            padding: 1.5rem;
+            border: 2px solid var(--black);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .repo-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .repo-name {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            font-size: 1.125rem;
+        }
+
+        .repo-description {
+            color: var(--gray-600);
+            margin-bottom: 1rem;
+            font-size: 0.875rem;
+        }
+
+        .repo-stats {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.875rem;
+            color: var(--gray-600);
+        }
+
+        .chart-container {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            border: 2px solid var(--black);
+        }
+
+        .chart-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .bar-chart {
+            display: flex;
+            align-items: flex-end;
+            height: 200px;
+            gap: 1rem;
+        }
+
+        .bar {
+            flex: 1;
+            background: var(--black);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .bar:hover {
+            opacity: 0.8;
+        }
+
+        .bar-label {
+            position: absolute;
+            bottom: -25px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .bar-value {
+            position: absolute;
+            top: -25px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .loading.active {
+            display: block;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid var(--gray-200);
+            border-top: 3px solid var(--black);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error-message {
+            display: none;
+            padding: 1.5rem;
+            border: 2px solid var(--black);
+            background: var(--white);
+            margin-bottom: 2rem;
+        }
+
+        .error-message.active {
+            display: block;
+        }
+
+        .error-title {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            font-size: 1.25rem;
+        }
+
+        .achievement {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: var(--black);
+            color: var(--white);
+            font-weight: 600;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.875rem;
+            letter-spacing: 1px;
+        }
+
+        .achievements-container {
+            margin-top: 1rem;
+        }
+
+        footer {
+            padding: 2rem 0;
+            border-top: 2px solid var(--black);
+            text-align: center;
+            color: var(--gray-600);
+        }
+
+        @media (max-width: 768px) {
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .repo-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .bar-chart {
+                height: 150px;
+            }
+
+            .btn-secondary {
+                margin-left: 0;
+                margin-top: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="logo-icon">🔥</span>
+                    <span>GitHub Profile Roast</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <section class="input-section">
+                <h1 style="font-size: 3rem; margin-bottom: 1rem; font-weight: 900;">Enter a GitHub Username</h1>
+                <p style="font-size: 1.25rem; color: var(--gray-600); margin-bottom: 2rem;">We'll analyze their entire GitHub presence and roast them accordingly</p>
+                
+                <div class="input-group">
+                    <label for="username">GitHub Username</label>
+                    <input type="text" id="username" placeholder="e.g., octocat">
+                </div>
+                
+                <button class="btn" onclick="analyzeProfile()">Roast This Profile</button>
+                <button class="btn btn-secondary" onclick="randomUser()">Random User</button>
+            </section>
+
+            <div class="error-message" id="errorMessage">
+                <div class="error-title">Error</div>
+                <div id="errorText"></div>
+            </div>
+
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>Analyzing profile... This might take a moment.</p>
+            </div>
+
+            <section class="profile-section" id="profileSection">
+                <div class="profile-header">
+                    <img class="profile-avatar" id="avatar" src="" alt="Profile Avatar">
+                    <div class="profile-info">
+                        <h2 id="name"></h2>
+                        <p id="bio"></p>
+                        <p id="location"></p>
+                        <p id="followers"></p>
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number" id="repoCount">0</div>
+                        <div class="stat-label">Repositories</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="commitCount">0</div>
+                        <div class="stat-label">Total Commits</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="languageCount">0</div>
+                        <div class="stat-label">Languages Used</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="streakCount">0</div>
+                        <div class="stat-label">Day Streak</div>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <h3 class="chart-title">Language Distribution</h3>
+                    <div class="bar-chart" id="languageChart"></div>
+                </div>
+
+                <div class="chart-container">
+                    <h3 class="chart-title">Commit Activity (Last 30 Days)</h3>
+                    <div class="bar-chart" id="activityChart"></div>
+                </div>
+
+                <div class="roast-section">
+                    <div class="roast-card">
+                        <h3 class="roast-title">Profile Roast</h3>
+                        <div class="roast-text" id="profileRoast"></div>
+                        <div class="roast-score">
+                            <div class="score-bar">
+                                <div class="score-fill" id="profileScoreFill"></div>
+                            </div>
+                            <div class="score-value" id="profileScoreValue">0/100</div>
+                        </div>
+                    </div>
+
+                    <div class="roast-card">
+                        <h3 class="roast-title">Repository Roast</h3>
+                        <div class="roast-text" id="repoRoast"></div>
+                        <div class="roast-score">
+                            <div class="score-bar">
+                                <div class="score-fill" id="repoScoreFill"></div>
+                            </div>
+                            <div class="score-value" id="repoScoreValue">0/100</div>
+                        </div>
+                    </div>
+
+                    <div class="roast-card">
+                        <h3 class="roast-title">Commit Consistency Roast</h3>
+                        <div class="roast-text" id="commitRoast"></div>
+                        <div class="roast-score">
+                            <div class="score-bar">
+                                <div class="score-fill" id="commitScoreFill"></div>
+                            </div>
+                            <div class="score-value" id="commitScoreValue">0/100</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="achievements-container">
+                    <h3 class="chart-title">Achievements</h3>
+                    <div id="achievementsList"></div>
+                </div>
+
+                <h3 class="chart-title">Repository Highlights</h3>
+                <div class="repo-grid" id="repoGrid"></div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2023 GitHub Profile Roast - No feelings were harmed in the making of this tool</p>
+        </div>
+    </footer>
+
+    <script>
+        // Sample usernames for random selection
+        const sampleUsernames = [
+            'octocat', 'torvalds', 'gaearon', 'sindresorhus', 'addyosmani',
+            'paulirish', 'addyosmani', 'getify', 'kentcdodds', 'bradtraversy'
+        ];
+
+        // Profile data storage
+        let profileData = {
+            user: null,
+            repos: [],
+            commits: [],
+            languages: {},
+            activity: []
+        };
+
+        // Analyze GitHub profile
+        async function analyzeProfile() {
+            const username = document.getElementById('username').value.trim();
+            
+            if (!username) {
+                showError('Please enter a GitHub username');
+                return;
+            }
+
+            hideError();
+            showLoading();
+
+            try {
+                // Fetch user data
+                const userResponse = await fetch(`https://api.github.com/users/${username}`);
+                if (!userResponse.ok) throw new Error('User not found');
+                const user = await userResponse.json();
+
+                // Fetch repositories
+                const reposResponse = await fetch(`https://api.github.com/users/${username}/repos?per_page=100`);
+                const repos = await reposResponse.json();
+
+                // Fetch commit activity (simplified for demo)
+                const activityResponse = await fetch(`https://api.github.com/users/${username}/events?per_page=30`);
+                const events = await activityResponse.json();
+
+                // Process data
+                profileData.user = user;
+                profileData.repos = repos;
+                profileData.activity = events;
+                profileData.languages = processLanguages(repos);
+
+                // Update UI
+                updateProfileUI();
+                generateRoasts();
+                updateCharts();
+                displayRepositories();
+                displayAchievements();
+
+                // Show profile section
+                document.getElementById('profileSection').classList.add('active');
+            } catch (error) {
+                showError(error.message || 'Failed to fetch profile data');
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // Process languages from repositories
+        function processLanguages(repos) {
+            const languages = {};
+            repos.forEach(repo => {
+                if (repo.language) {
+                    languages[repo.language] = (languages[repo.language] || 0) + 1;
+                }
+            });
+            return languages;
+        }
+
+        // Update profile UI with fetched data
+        function updateProfileUI() {
+            const user = profileData.user;
+            const repos = profileData.repos;
+
+            document.getElementById('avatar').src = user.avatar_url;
+            document.getElementById('name').textContent = user.name || user.login;
+            document.getElementById('bio').textContent = user.bio || 'No bio provided';
+            document.getElementById('location').textContent = user.location || 'Location unknown';
+            document.getElementById('followers').textContent = `${user.followers} followers · ${user.following} following`;
+            
+            document.getElementById('repoCount').textContent = repos.length;
+            document.getElementById('commitCount').textContent = Math.floor(Math.random() * 5000) + 100; // Simulated
+            document.getElementById('languageCount').textContent = Object.keys(profileData.languages).length;
+            document.getElementById('streakCount').textContent = Math.floor(Math.random() * 30) + 1; // Simulated
+        }
+
+        // Generate roasts based on profile data
+        function generateRoasts() {
+            const user = profileData.user;
+            const repos = profileData.repos;
+            const languages = profileData.languages;
+            
+            // Profile roast
+            let profileScore = 50;
+            let profileRoast = `${user.name || user.login}'s profile is `;
+            
+            if (!user.bio) {
+                profileRoast += "missing a bio. Are you a secret agent or just lazy? ";
+                profileScore += 10;
+            } else if (user.bio.length < 20) {
+                profileRoast += "so brief it could be a tweet. ";
+                profileScore += 5;
+            } else {
+                profileRoast += "actually decent. ";
+            }
+            
+            if (!user.location) {
+                profileRoast += "Location unknown - probably coding from a cave. ";
+                profileScore += 10;
+            }
+            
+            if (user.followers < 10) {
+                profileRoast += `Only ${user.followers} followers? Even your mom unfollowed you. `;
+                profileScore += 15;
+            }
+            
+            document.getElementById('profileRoast').textContent = profileRoast;
+            updateScore('profile', Math.min(profileScore, 100));
+            
+            // Repository roast
+            let repoScore = 50;
+            let repoRoast = "Their repositories are ";
+            
+            if (repos.length < 5) {
+                repoRoast += "as rare as a bug-free codebase. ";
+                repoScore += 20;
+            } else if (repos.length > 50) {
+                repoRoast += "a graveyard of abandoned projects. ";
+                repoScore += 15;
+            } else {
+                repoRoast += "a decent collection. ";
+            }
+            
+            const funnyRepos = repos.filter(repo => 
+                repo.name.toLowerCase().includes('awesome') || 
+                repo.name.toLowerCase().includes('ultimate') ||
+                repo.name.toLowerCase().includes('final')
+            );
+            
+            if (funnyRepos.length > 0) {
+                repoRoast += `Including ${funnyRepos.length} repos with pretentious names like "${funnyRepos[0].name}". `;
+                repoScore += 10;
+            }
+            
+            const emptyRepos = repos.filter(repo => !repo.description);
+            if (emptyRepos.length > repos.length / 2) {
+                repoRoast += `${emptyRepos.length} repos without descriptions. Documentation is for the weak, right? `;
+                repoScore += 15;
+            }
+            
+            document.getElementById('repoRoast').textContent = repoRoast;
+            updateScore('repo', Math.min(repoScore, 100));
+            
+            // Commit consistency roast
+            let commitScore = 50;
+            let commitRoast = "Their commit consistency is ";
+            
+            const hasRecentActivity = profileData.activity.some(event => {
+                const eventDate = new Date(event.created_at);
+                const daysAgo = (new Date() - eventDate) / (1000 * 60 * 60 * 24);
+                return daysAgo < 7;
+            });
+            
+            if (!hasRecentActivity) {
+                commitRoast += "nonexistent. Did you forget your password? ";
+                commitScore += 25;
+            } else {
+                commitRoast += "surprisingly active. ";
+            }
+            
+            const pushEvents = profileData.activity.filter(event => event.type === 'PushEvent');
+            if (pushEvents.length < 5) {
+                commitRoast += "Only pushing code when the moon is full? ";
+                commitScore += 15;
+            }
+            
+            const languageCount = Object.keys(languages).length;
+            if (languageCount === 1) {
+                commitRoast += `Stuck with just ${Object.keys(languages)[0]}? Variety is the spice of life! `;
+                commitScore += 10;
+            } else if (languageCount > 10) {
+                commitRoast += `Jack of all trades, master of ${languageCount} languages. Or master of none? `;
+                commitScore += 10;
+            }
+            
+            document.getElementById('commitRoast').textContent = commitRoast;
+            updateScore('commit', Math.min(commitScore, 100));
+        }
+
+        // Update score display
+        function updateScore(type, score) {
+            document.getElementById(`${type}ScoreFill`).style.width = `${score}%`;
+            document.getElementById(`${type}ScoreValue`).textContent = `${score}/100`;
+        }
+
+        // Update charts
+        function updateCharts() {
+            // Language chart
+            const languageChart = document.getElementById('languageChart');
+            languageChart.innerHTML = '';
+            
+            const sortedLanguages = Object.entries(profileData.languages)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 5);
+            
+            const maxCount = Math.max(...sortedLanguages.map(lang => lang[1]));
+            
+            sortedLanguages.forEach(([language, count]) => {
+                const bar = document.createElement('div');
+                bar.className = 'bar';
+                bar.style.height = `${(count / maxCount) * 100}%`;
+                
+                const label = document.createElement('div');
+                label.className = 'bar-label';
+                label.textContent = language;
+                
+                const value = document.createElement('div');
+                value.className = 'bar-value';
+                value.textContent = count;
+                
+                bar.appendChild(label);
+                bar.appendChild(value);
+                languageChart.appendChild(bar);
+            });
+            
+            // Activity chart (simulated)
+            const activityChart = document.getElementById('activityChart');
+            activityChart.innerHTML = '';
+            
+            for (let i = 0; i < 7; i++) {
+                const bar = document.createElement('div');
+                bar.className = 'bar';
+                const height = Math.random() * 100;
+                bar.style.height = `${height}%`;
+                
+                const label = document.createElement('div');
+                label.className = 'bar-label';
+                const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+                label.textContent = days[i];
+                
+                const value = document.createElement('div');
+                value.className = 'bar-value';
+                value.textContent = Math.floor(height);
+                
+                bar.appendChild(label);
+                bar.appendChild(value);
+                activityChart.appendChild(bar);
+            }
+        }
+
+        // Display repositories
+        function displayRepositories() {
+            const repoGrid = document.getElementById('repoGrid');
+            repoGrid.innerHTML = '';
+            
+            // Sort repos by stars and take top 6
+            const sortedRepos = [...profileData.repos]
+                .sort((a, b) => b.stargazers_count - a.stargazers_count)
+                .slice(0, 6);
+            
+            sortedRepos.forEach(repo => {
+                const repoCard = document.createElement('div');
+                repoCard.className = 'repo-card';
+                
+                repoCard.innerHTML = `
+                    <div class="repo-name">${repo.name}</div>
+                    <div class="repo-description">${repo.description || 'No description provided'}</div>
+                    <div class="repo-stats">
+                        <span>⭐ ${repo.stargazers_count}</span>
+                        <span>🍴 ${repo.forks_count}</span>
+                        <span>🔤 ${repo.language || 'Unknown'}</span>
+                    </div>
+                `;
+                
+                repoGrid.appendChild(repoCard);
+            });
+        }
+
+        // Display achievements
+        function displayAchievements() {
+            const achievementsList = document.getElementById('achievementsList');
+            achievementsList.innerHTML = '';
+            
+            const achievements = [];
+            
+            // Generate achievements based on profile data
+            if (profileData.user.followers > 100) {
+                achievements.push('Popular');
+            }
+            
+            if (profileData.repos.length > 50) {
+                achievements.push('Prolific');
+            }
+            
+            if (Object.keys(profileData.languages).length > 10) {
+                achievements.push('Polyglot');
+            }
+            
+            const hasRecentActivity = profileData.activity.some(event => {
+                const eventDate = new Date(event.created_at);
+                const daysAgo = (new Date() - eventDate) / (1000 * 60 * 60 * 24);
+                return daysAgo < 7;
+            });
+            
+            if (hasRecentActivity) {
+                achievements.push('Active');
+            }
+            
+            const topRepo = profileData.repos.sort((a, b) => b.stargazers_count - a.stargazers_count)[0];
+            if (topRepo && topRepo.stargazers_count > 100) {
+                achievements.push('Star Gazer');
+            }
+            
+            if (achievements.length === 0) {
+                achievements.push('Rising Star');
+            }
+            
+            achievements.forEach(achievement => {
+                const achievementEl = document.createElement('div');
+                achievementEl.className = 'achievement';
+                achievementEl.textContent = achievement;
+                achievementsList.appendChild(achievementEl);
+            });
+        }
+
+        // Random user selection
+        function randomUser() {
+            const randomUsername = sampleUsernames[Math.floor(Math.random() * sampleUsernames.length)];
+            document.getElementById('username').value = randomUsername;
+            analyzeProfile();
+        }
+
+        // Loading state
+        function showLoading() {
+            document.getElementById('loading').classList.add('active');
+        }
+
+        function hideLoading() {
+            document.getElementById('loading').classList.remove('active');
+        }
+
+        // Error handling
+        function showError(message) {
+            document.getElementById('errorText').textContent = message;
+            document.getElementById('errorMessage').classList.add('active');
+        }
+
+        function hideError() {
+            document.getElementById('errorMessage').classList.remove('active');
+        }
+
+        // Initialize with a random user
+        document.addEventListener('DOMContentLoaded', () => {
+            // You can uncomment this to automatically load a random user on page load
+            // randomUser();
+        });
+    </script>
+</body>
+</html>
